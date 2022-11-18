@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %} My cart {% endblock %}
+{% block content %}
+<table align="center">
+<tr>
+<td>商品名稱</td>
+<td>&nbsp</td>
+<td>單價</td>
+<td>&nbsp</td>
+<td>數量</td>
+<td>&nbsp</td>
+<td>&nbsp</td>
+</tr>
+{% for clist in cart_list %}
+    <tr>
+        <td align="center">{{clist.CartGoodsName}}</td>
+        <td>&nbsp</td>
+        <td>{{clist.CartGoodsPrice}}</td>
+        <td>&nbsp</td>
+        <td align="center">{{clist.CartGoodsQuantity}}</td>
+        <td>&nbsp</td>
+        <td><button type="button">刪除</button></td>
+    </tr>
+{% endfor %}
+</table>
+<h2 align="center">
+    總價: &nbsp {{count}}元
+</h2>
+<div align="center">
+    <button type="button" onclick="window.location.href='">結帳</button>
+</div>
+{% endblock %}

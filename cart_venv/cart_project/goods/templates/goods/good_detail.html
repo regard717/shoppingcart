@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %} store {% endblock %}
+{% block content %}
+<h1 align="center">
+    賣場
+</h1>
+<table align="center">
+<tr>
+<td>商品名稱</td>
+<td>&nbsp</td>
+<td>單價</td>
+<td>&nbsp</td>
+<td>剩餘數量</td>
+<td>&nbsp</td>
+</tr>
+    {% for vlist in good_list %}
+        <tr>
+            <td align="center">{{vlist.GoodsName}}</td>
+            <td>&nbsp</td>
+            <td>{{vlist.GoodsPrice}}</td>
+            <td>&nbsp</td>
+            <td align="center">{{vlist.GoodsQuantity}}</td>
+            <td>&nbsp</td>
+            <td><button type="button" onclick="location.href='{% url 'cart_add' %}{{vlist.id}}';">加入購物車</button></td>
+        </tr>
+    {% endfor %}
+</table>
+<div align="center">
+    <button type="button" onclick="window.location.href='cart/'">購物車</button>
+</div>
+{% endblock %}
