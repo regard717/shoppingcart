@@ -20,12 +20,12 @@ class Cart(models.Model):
         return self.CartGoodsName
     
 class Sold(models.Model):
-    soldGoodsName = models.CharField(max_length = 30) # 購物車裡的商品名稱
-    soldGoodsPrice = models.DecimalField(max_digits = 4, decimal_places=0) # 購物車裡的商品價錢
-    soldGoodsQuantity = models.DecimalField(max_digits = 4, decimal_places=0) # 購物車裡的商品數量
+    SoldGoodsName = models.CharField(max_length = 30) # 購物車裡的商品名稱
+    SoldGoodsPrice = models.DecimalField(max_digits = 4, decimal_places=0) # 購物車裡的商品價錢
+    SoldGoodsQuantity = models.DecimalField(max_digits = 4, decimal_places=0) # 購物車裡的商品數量
 
     def __str__(self):
-        return self.soldGoodsName
+        return self.SoldGoodsName
 
 @admin.register(Good)
 class GoodAdmin(admin.ModelAdmin) :

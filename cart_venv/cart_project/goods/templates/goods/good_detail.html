@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %} store {% endblock %}
+{% block title %} 賣場 {% endblock %}
 {% block content %}
 <h1 align="center">
     歡迎來到賣場
@@ -21,11 +21,13 @@
             <td>&nbsp</td>
             <td align="center">{{vlist.GoodsQuantity}}</td>
             <td>&nbsp</td>
-            <td><button type="button" onclick="location.href='{% url 'cart_add' %}{{vlist.id}}';">加入購物車</button></td>
+            <td>
+                <button type="button" onclick="location.href='{% url 'cart_add' vlist.id %}';">加入購物車</button>
+            </td>
         </tr>
     {% endfor %}
 </table>
 <div align="center">
-    <button type="button" onclick="window.location.href='cart/'">購物車</button>
+    <button type="button" onclick="location.href='{% url 'cart' %}';">購物車</button>
 </div>
 {% endblock %}

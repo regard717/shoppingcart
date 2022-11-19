@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %} My cart {% endblock %}
+{% block title %} 購物車 {% endblock %}
 {% block content %}
 <h1 align="center">
     我的購物車
@@ -22,7 +22,9 @@
         <td>&nbsp</td>
         <td align="center">{{clist.CartGoodsQuantity}}</td>
         <td>&nbsp</td>
-        <td><button type="button">刪除</button></td>
+        <td>
+            <button type="button" onclick="location.href='{% url 'askdelete' clist.CartGoodsName %}';">刪除</button>
+        </td>
     </tr>
 {% endfor %}
 </table>
@@ -30,6 +32,6 @@
     總價:{{price_all.total}}元
 </h2>
 <div align="center">
-    <button type="button" onclick="window.location.href='">結帳</button>
+    <button type="button" onclick="location.href='{% url 'check_out' %}';">結帳</button>
 </div>
 {% endblock %}
