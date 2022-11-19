@@ -18,6 +18,14 @@ class Cart(models.Model):
 
     def __str__(self):
         return self.CartGoodsName
+    
+class Sold(models.Model):
+    soldGoodsName = models.CharField(max_length = 30) # 購物車裡的商品名稱
+    soldGoodsPrice = models.DecimalField(max_digits = 4, decimal_places=0) # 購物車裡的商品價錢
+    soldGoodsQuantity = models.DecimalField(max_digits = 4, decimal_places=0) # 購物車裡的商品數量
+
+    def __str__(self):
+        return self.soldGoodsName
 
 @admin.register(Good)
 class GoodAdmin(admin.ModelAdmin) :
@@ -27,3 +35,7 @@ class GoodAdmin(admin.ModelAdmin) :
 @admin.register(Cart)
 class CartAdmin(admin.ModelAdmin) :
     list_display = [field.name for field in Cart._meta.fields]
+
+@admin.register(Sold)
+class SoldAdmin(admin.ModelAdmin) :
+    list_display = [field.name for field in Sold._meta.fields]

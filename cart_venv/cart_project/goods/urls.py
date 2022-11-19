@@ -21,4 +21,5 @@ urlpatterns = [
     path('', views.good_index, name='index'),
     path('cart/', views.cart_index, name="cart"),
     path('cart_add/', views.cart_add, name="cart_add"),
+    path('manager/', views.manager, name="manager"),
 ]

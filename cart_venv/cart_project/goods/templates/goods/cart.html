@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% block title %} My cart {% endblock %}
 {% block content %}
+<h1 align="center">
+    我的購物車
+</h1>
 <table align="center">
 <tr>
 <td>商品名稱</td>
@@ -24,7 +27,7 @@
 {% endfor %}
 </table>
 <h2 align="center">
-    總價: &nbsp {{count}}元
+    總價:{{price_all.total}}元
 </h2>
 <div align="center">
     <button type="button" onclick="window.location.href='">結帳</button>

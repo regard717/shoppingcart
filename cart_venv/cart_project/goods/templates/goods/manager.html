@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %} store {% endblock %}
+{% block content %}
+<h1 align="center">
+    我的賣場
+</h1>
+<h2 align="center">
+    庫存
+</h2>
+<table align="center">
+<tr>
+<td>商品名稱</td>
+<td>&nbsp</td>
+<td>單價</td>
+<td>&nbsp</td>
+<td>剩餘數量</td>
+<td>&nbsp</td>
+</tr>
+    {% for vlist in good_list %}
+        <tr>
+            <td align="center">{{vlist.GoodsName}}</td>
+            <td>&nbsp</td>
+            <td>{{vlist.GoodsPrice}}</td>
+            <td>&nbsp</td>
+            <td align="center">{{vlist.GoodsQuantity}}</td>
+            <td>&nbsp</td>
+            <td><button type="button" onclick="">庫存量+1</button></td>
+            <td><button type="button" onclick="">庫存量-1</button></td>
+            <td><button type="button" onclick="">刪除</button></td>
+        </tr>
+    {% endfor %}
+</table>
+<h2 align="center">
+    待出貨商品
+</h2>
+<table align="center">
+<tr>
+<td>商品名稱</td>
+<td>&nbsp</td>
+<td>單價</td>
+<td>&nbsp</td>
+<td>數量</td>
+<td>&nbsp</td>
+</tr>
+    {% for clist in cart_list %}
+        <tr>
+            <td align="center">{{clist.CartGoodsName}}</td>
+            <td>&nbsp</td>
+            <td>{{clist.CartGoodsPrice}}</td>
+            <td>&nbsp</td>
+            <td align="center">{{clist.CartGoodsQuantity}}</td>
+            <td>&nbsp</td>
+            <td><button type="button" onclick="">出貨</button></td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}
