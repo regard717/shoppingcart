@@ -24,4 +24,9 @@ urlpatterns = [
     path('check_out/', views.check_out, name="check_out"),
     path('askdelete/<clist_CartGoodsName>', views.askdelete, name="askdelete"),
     path('manager/', views.manager, name="manager"),
+    path('manager/plusQuantity/<vlist_GoodsName>', views.plusQuantity, name="plusQuantity"),
+    path('manager/minusQuantity/<vlist_GoodsName>', views.minusQuantity, name="minusQuantity"),
+    path('manager/deleteGoods/<vlist_GoodsName>', views.deleteGoods, name="deleteGoods"),
+    path('manager/shipping/<slist_SoldGoodsName>', views.shipping, name="shipping"),
+    path('add_function/', views.add_function, name="add_function"),
 ]

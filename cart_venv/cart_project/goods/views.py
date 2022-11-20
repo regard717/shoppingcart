@@ -1,7 +1,7 @@
 from django.db.models import Sum
 from django.shortcuts import render
-from django.http import HttpResponse
 from .models import Good, Cart, Sold
+from goods.form import GoodForm
 
 # Create your views here.
 def good_index(request):
@@ -39,9 +39,10 @@ def check_out(request):
                 j.SoldGoodsQuantity += i.CartGoodsQuantity
                 Sold.objects.filter(SoldGoodsName=i.CartGoodsName).update(SoldGoodsPrice=j.SoldGoodsPrice, SoldGoodsQuantity=j.SoldGoodsQuantity)
                 Cart.objects.filter(CartGoodsName=i.CartGoodsName).delete()
-                i += 1
-    for i in unsold:
+    last_unsold = Cart.objects.all()
+    for i in last_unsold:
         Sold.objects.create(SoldGoodsName=i.CartGoodsName, SoldGoodsPrice=i.CartGoodsPrice, SoldGoodsQuantity=i.CartGoodsQuantity)
+    Cart.objects.all().delete()
     return render(request, 'goods/check_out.html')
 
 def askdelete(request, clist_CartGoodsName):
@@ -51,6 +52,54 @@ def askdelete(request, clist_CartGoodsName):
     return render(request, 'goods/cart.html', {"cart_list":cart_list, 'price_all':price_all})
 
 def manager(request):
+    good_list = Good.objects.all()
+    sold_list = Sold.objects.all()
+    return render(request, 'goods/manager.html', {'good_list':good_list, 'sold_list':sold_list})
+
+def plusQuantity(request, vlist_GoodsName):
+    plusName = Good.objects.filter(GoodsName=vlist_GoodsName)
+    for i in plusName :
+        x = i.GoodsQuantity
+    x += 1
+    Good.objects.filter(GoodsName=vlist_GoodsName).update(GoodsQuantity=x)
+    good_list = Good.objects.all()
+    sold_list = Sold.objects.all()
+    return render(request, 'goods/manager.html', {'good_list':good_list, 'sold_list':sold_list})
+
+
+def minusQuantity(request, vlist_GoodsName):
+    plusName = Good.objects.filter(GoodsName=vlist_GoodsName)
+    for i in plusName :
+        x = i.GoodsQuantity
+    x -= 1
+    Good.objects.filter(GoodsName=vlist_GoodsName).update(GoodsQuantity=x)
+    good_list = Good.objects.all()
+    sold_list = Sold.objects.all()
+    return render(request, 'goods/manager.html', {'good_list':good_list, 'sold_list':sold_list})
+
+
+def deleteGoods(request, vlist_GoodsName):
+    Good.objects.filter(GoodsName=vlist_GoodsName).delete()
+    good_list = Good.objects.all()
+    sold_list = Sold.objects.all()
+    return render(request, 'goods/manager.html', {'good_list':good_list, 'sold_list':sold_list})
+
+def shipping(request, slist_SoldGoodsName):
+    shipName = Good.objects.get(GoodsName=slist_SoldGoodsName)
+    quantity = Sold.objects.get(SoldGoodsName=shipName.GoodsName)
+    last = shipName.GoodsQuantity - quantity.SoldGoodsQuantity
+    Good.objects.filter(GoodsName=slist_SoldGoodsName).update(GoodsQuantity=last)
+    Sold.objects.filter(SoldGoodsName=shipName.GoodsName).delete()
+    good_list = Good.objects.all()
+    sold_list = Sold.objects.all()
+    return render(request, 'goods/manager.html', {'good_list':good_list, 'sold_list':sold_list})
+
+def add_function(request):
+    if request.method == 'POST':
+        GoodsName = request.POST['Goodsname']
+        GoodsPrice = request.POST['Goodsprice']
+        GoodsQuantity = request.POST['Goodsquantity']
+        Good.objects.create(GoodsName=GoodsName, GoodsPrice=GoodsPrice, GoodsQuantity=GoodsQuantity)
     good_list = Good.objects.all()
     sold_list = Sold.objects.all()
     return render(request, 'goods/manager.html', {'good_list':good_list, 'sold_list':sold_list})

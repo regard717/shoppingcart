@@ -19,13 +19,13 @@
             <td>{{vlist.GoodsPrice}}</td>
             <td align="center">{{vlist.GoodsQuantity}}</td>
             <td>
-                <button type="button" onclick="">庫存量+1</button>
+                <button type="button" onclick="location.href='{% url 'plusQuantity' vlist.GoodsName %}';">庫存量+1</button>
             </td>
             <td>
-                <button type="button" onclick="">庫存量-1</button>
+                <button type="button" onclick="location.href='{% url 'minusQuantity' vlist.GoodsName %}';">庫存量-1</button>
             </td>
             <td>
-                <button type="button" onclick="">刪除</button>
+                <button type="button" onclick="location.href='{% url 'deleteGoods' vlist.GoodsName %}';">刪除</button>
             </td>
         </tr>
     {% endfor %}
@@ -35,15 +35,16 @@
 </h2>
 
 <tr>
-<form align="center">
+<form align="center" action="/store/add_function/" method="post">
+    {% csrf_token %}
     <td>
-        商品名稱:<input name="name" type="text">
+        商品名稱:<input name="Goodsname" type="text">
     </td>
     <td>
-        商品價格:<input name="price" type="text">
+        商品價格:<input name="Goodsprice" type="text">
     </td>
     <td>
-        商品數量:<input name="quantity" type="text">
+        商品數量:<input name="Goodsquantity" type="text">
     </td>
     <td>
         <input type="submit" value="新增">
@@ -70,7 +71,9 @@
             <td>&nbsp</td>
             <td align="center">{{slist.SoldGoodsQuantity}}</td>
             <td>&nbsp</td>
-            <td><button type="button" onclick="">出貨</button></td>
+            <td>
+                <button type="button" onclick="location.href='{% url 'shipping' slist.SoldGoodsName %}';">出貨</button>
+            </td>
         </tr>
     {% endfor %}
 </table>
