@@ -11,7 +11,14 @@ def good_index(request):
 def cart_index(request):
     cart_list = Cart.objects.all()
     price_all = Cart.objects.all().aggregate(total=Sum('CartGoodsPrice'))
-    return render(request, 'goods/cart.html', {"cart_list":cart_list, 'price_all':price_all})
+    discount = int(price_all['total'])//1000
+    if discount != 0:
+        discount *= 100
+        x = int(price_all['total']) - discount
+        price_all['total'] = str(x)
+        return render(request, 'goods/cart.html', {"cart_list":cart_list, 'price_all':price_all})
+    else:
+        return render(request, 'goods/cart.html', {"cart_list":cart_list, 'price_all':price_all})
 
 def cart_add(request, vlist_id):
     add_good_to_cart = Good.objects.get(pk=vlist_id)

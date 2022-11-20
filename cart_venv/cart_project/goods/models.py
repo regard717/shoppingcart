@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
@@ -26,16 +25,3 @@ class Sold(models.Model):
 
     def __str__(self):
         return self.SoldGoodsName
-
-@admin.register(Good)
-class GoodAdmin(admin.ModelAdmin) :
-    list_display = [field.name for field in Good._meta.fields]
-    search_fields = ('GoodsName', 'GoodsPrice')
-
-@admin.register(Cart)
-class CartAdmin(admin.ModelAdmin) :
-    list_display = [field.name for field in Cart._meta.fields]
-
-@admin.register(Sold)
-class SoldAdmin(admin.ModelAdmin) :
-    list_display = [field.name for field in Sold._meta.fields]
